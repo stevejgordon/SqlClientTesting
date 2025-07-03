@@ -66,6 +66,8 @@ Stop IIS
 
 Replace the instrumentation files in "C:\Program Files\OpenTelemetry .NET AutoInstrumentation" for the outputfrom bin/tracer-home after building the autointrumentation repo.
 
+You'll also need to copy OpenTelemetry.AutoInstrumentation.dll from the newly built version to the subdirectory C:\Windows\Microsoft.NET\assembly\GAC_MSIL\OpenTelemetry.AutoInstrumentation\v4.0_1.0.0.0__c0db600a13f60b51
+
 Restart IIS
 
 Run the website
