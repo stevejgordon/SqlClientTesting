@@ -1,4 +1,5 @@
-Pre-reqs
+## Pre-reqs
+
 - Install IIS for ASP.NET on Windows
 
 ## Prepare IIS
@@ -46,6 +47,16 @@ Invoke-WebRequest -Uri $module_url -OutFile $download_path -UseBasicParsing
 Import-Module $download_path
 Install-OpenTelemetryCore
 Register-OpenTelemetryForIIS
+
+## Add the following ENV Vars to the app pool
+
+COR_ENABLE_PROFILING  = 1
+OTEL_SERVICE_NAME = SqlClientApp
+OTEL_EXPORTER_OTLP_ENDPOINT = <YOURCLOUDURL>
+OTEL_EXPORTER_OTLP_HEADERS = Authorization=ApiKey <YOURAPIKEY>
+OTEL_LOG_LEVEL = debug
+
+OTEL_DOTNET_AUTO_LOG_DIRECTORY = C:\Logs\SqlClientApp
 
 ## Testing autoinstrumentation code
 
