@@ -34,6 +34,11 @@ INSERT INTO Inventory
 VALUES (1, 'banana', 150);
 GO
 
+CREATE PROCEDURE ProcedureName
+AS
+SELECT * FROM TestDB;
+GO;
+
 ## Install OTel Auto instrumentation
 
 Follow steps as per https://opentelemetry.io/docs/zero-code/dotnet/#instrument-an-aspnet-application-deployed-on-iis
