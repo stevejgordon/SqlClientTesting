@@ -10,7 +10,8 @@ namespace SqlClientTesting.Controllers
             using (var connection = new SqlConnection("Server=localhost;Database=TestDb;User Id=SA;Password=Password1!;"))
             {
                 connection.Open();
-                using (System.Data.IDbCommand command = connection.CreateCommand())
+
+                using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT * FROM Inventory";
                     using (System.Data.IDataReader reader = command.ExecuteReader())
@@ -23,19 +24,29 @@ namespace SqlClientTesting.Controllers
                             }
                             Response.Write("<hr/>");
                         }
-                        Response.End();
                     }
-
-                    //using (var command2 = new SqlCommand("ProcedureName", connection)
-                    //{
-                    //    CommandType = System.Data.CommandType.StoredProcedure
-                    //})
-                    //{
-                    //    command2.ExecuteNonQuery();
-                    //}
-                    connection.Close();
                 }
 
+                using (var command2 = new SqlCommand("ProcedureName", connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                })
+                {
+                    using (System.Data.IDataReader reader = command2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                Response.Write($"{reader.GetName(i)}: {reader.GetValue(i)}<br/>");
+                            }
+                            Response.Write("<hr/>");
+                        }
+                    }
+                }
+                connection.Close();
+
+                Response.End();
                 return View();
             }
         }
